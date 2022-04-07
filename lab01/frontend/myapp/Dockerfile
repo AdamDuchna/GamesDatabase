@@ -1,13 +1,11 @@
 FROM node:alpine
 
-WORKDIR /app
+WORKDIR /opt/app
 
-COPY package.json ./
+COPY ./package.json ./
 
-COPY package-lock.json ./
+RUN yarn install
 
-RUN npm install 
+COPY . .
 
-COPY ./ ./
-
-CMD npm start
+CMD yarn start
