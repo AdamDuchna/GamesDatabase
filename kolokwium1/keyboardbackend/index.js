@@ -20,6 +20,10 @@ const pgClient = new Pool({
 
 const redisClient = new Redis(redisData)
 
+pgClient.connect()
+pgClient.query('CREATE TABLE IF NOT EXISTS keyboards (id VARCHAR(36),producer VARCHAR(30),model VARCHAR(30),color VARCHAR(30),keytype VARCHAR(30),size VARCHAR(10))')
+
+redisClient.connect()
 
 redisClient.on('error', error => {
     console.error('Error connecting to Redis', error);
