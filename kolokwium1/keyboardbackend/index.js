@@ -4,6 +4,7 @@ const Redis = require("ioredis");
 const {Pool} = require('pg');
 
 const app = express();
+app.use(express.json());
 
 const redisData = {
     host: config.redisHost,
@@ -52,7 +53,7 @@ app.get('/keyboards', async(req,res)=>{
     else{
         const redisData = await redisClient.smembers("keyboards")
         pgClient.end()
-        return res.send(redisData)
+        return res.send(JSON.parse(redisData))
     }
 })
 
@@ -60,7 +61,7 @@ app.post('/keyboards', async(req,res)=>{
     const {id, producer, model, color, keytype, size} = req.body
     const result = await pgClient.query("INSERT INTO keyboards (id, producer, model, color, keytype, size) VALUES ($1, $2, $3, $4, $5, $6)",[id, producer, model, color, keytype, size])
     const result2 = await redisClient.sadd("keyboards",JSON.stringify(req.body))
-    res.send(result)
+    res.send({result,result2})
 
 })
 

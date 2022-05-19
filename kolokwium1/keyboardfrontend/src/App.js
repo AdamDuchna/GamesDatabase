@@ -20,7 +20,7 @@ function App() {
                     size: ''
 
                 }}
-                onSubmit={(values) => axios.post('api/keyboards',values)}
+                onSubmit={(values) => axios.post('api/keyboards',values).then(res=>console.log(res.data))}
                 enableReinitialize={true}>
                     <Form>
                         <Field name="producer" placeholder="Producer" />
@@ -33,6 +33,7 @@ function App() {
                         </button>
                     </Form>
                 </Formik>
+                <div onClick={()=>axios.get('api/keyboards').then(res=>console.log(res.data))}>GET KEYBOARDS</div>
         </div>
     </div>
   );
