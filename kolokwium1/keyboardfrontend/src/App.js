@@ -20,7 +20,7 @@ function App() {
                     size: ''
 
                 }}
-                onSubmit={(values) => console.log(values)}
+                onSubmit={(values) => axios.post('api/keyboards',values)}
                 enableReinitialize={true}>
                     <Form>
                         <Field name="producer" placeholder="Producer" />

@@ -42,6 +42,27 @@ pgClient.on('connect', () => {
       })
 
 
+app.get('keyboards', async(req,res)=>{
+    const redisAmount = await redisClient.scard("keyboards")
+    if(redisAmount === 0){
+        const pgData = await pgClient.query("SELECT * FROM keyboards");
+        pgClient.end()
+        redisClient.quit()
+        res.send(pgData.rows)
+    }
+    else{
+        const redisData = await redisClient.smembers("keyboards")
+        pgClient.end()
+        redisClient.quit()
+        return res.send(redisData)
+    }
+})
+
+app.post('keyboards', async(req,res)=>{
+    console.log(req)
+
+})
+
 app.listen(5000, ()=>{
     console.log('App is listening');
   })
