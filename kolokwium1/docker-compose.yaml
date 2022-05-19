@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+
+  myredis:
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'
+
+  mypostgres:
+    image: 'postgres:14.1-alpine'
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    
+  keyboardbackend:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./keyboardbackend
+    depends_on:
+      - mypostgres
+      - myredis
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_HOST=mypostgres
+      - POSTGRES_PORT=5432
+      - REDIS_HOST=myredis
+      - REDIS_PORT=6379
+
+  keyboardfrontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./keyboardfrontend
+    volumes:
+      - /opt/app/node_modules
+
+  keyboardnginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./keyboardnginx
+    depends_on:
+      - keyboardbackend
+    ports:
+      - '9090:80'
