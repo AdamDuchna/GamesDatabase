@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  myredis:
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'
+  mypostgres:
+    image: 'postgres:14.1-alpine'
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    
+  
+  mybackend:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./mybackend
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_HOST=mypostgres
+      - REDIS_HOST=myredis
+  myfrontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./myfrontend
+    volumes:
+      - /opt/app/node_modules
+
+
+  mynginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./mynginx
+    ports:
+      - '9090:80'
