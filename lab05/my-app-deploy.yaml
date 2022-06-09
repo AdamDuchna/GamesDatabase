@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-backend-deployment
+  labels:
+    app: myapp
+    type: backend
+
+spec:
+  template:
+    metadata:
+      name: my-backend-pod
+      labels:
+        app: myapp
+        type: backend
+    spec:
+      containers:
+        - name: my-backend-container
+          image: surokraci/lab05
+          ports:
+          - containerPort: 5000
+  replicas: 5
+  selector:
+    matchLabels:
+      app: myapp
+      type: backend
+  
