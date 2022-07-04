@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-integration-deployment
+  labels:
+    app: myapp
+    type: client
+
+spec:
+  template:
+    metadata:
+      name: my-integration-pod
+      labels:
+        app: myapp
+        type: client
+    spec:
+      containers:
+        - name: my-integration-container
+          image: project/myintegration
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 6000
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+      type: client

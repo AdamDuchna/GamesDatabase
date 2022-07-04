@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deployment
+  labels:
+    app: myapp
+    type: client
+
+spec:
+  template:
+    metadata:
+      name: my-web-pod
+      labels:
+        app: myapp
+        type: client
+    spec:
+      containers:
+        - name: my-web-container
+          image: project/mywebapp
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+      type: client

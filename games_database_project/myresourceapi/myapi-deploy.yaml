@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-backend-deployment
+  labels:
+    app: myapp
+    type: backend
+spec:
+  template:
+    metadata:
+      name: my-backend-pod
+      labels:
+        app: myapp
+        type: backend
+    spec:
+      containers:
+        - name: my-backend-container
+          imagePullPolicy: Never
+          image: project/myapi
+          ports:
+            - containerPort: 4000
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+      type: backend
