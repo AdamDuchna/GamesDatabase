@@ -5,7 +5,7 @@ const axios = require('axios');
 const Game = require("../models/Game");
 const Favourite = require("../models/Favourite");
 
-const introspectionEndpoint = "http://localhost:8080/realms/myapprealm/protocol/openid-connect/token/introspect";
+const introspectionEndpoint = "http://keycloak-development-service:8080/realms/myapprealm/protocol/openid-connect/token/introspect";
 
 
 

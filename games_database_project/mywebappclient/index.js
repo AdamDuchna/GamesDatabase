@@ -5,11 +5,11 @@ const pkceChallenge = require("pkce-challenge").default;
 const app = express();
 const appPort = 5000;
 
-const authEndpoint = "http://localhost:8080/realms/myapprealm/protocol/openid-connect/auth";
-const tokenEndpoint = "http://localhost:8080/realms/myapprealm/protocol/openid-connect/token";
+const authEndpoint = "http://keycloak-development-service:8080/realms/myapprealm/protocol/openid-connect/auth";
+const tokenEndpoint = "http://keycloak-development-service:8080/realms/myapprealm/protocol/openid-connect/token";
 
-const apiProtectedEndpoint = "http://localhost:4000/webapp/games";
-const apiUnprotectedEndpoint = "http://localhost:4000/webapp/favourites";
+const apiProtectedEndpoint = "http://mybackend-clusterip:4000/webapp/games";
+const apiUnprotectedEndpoint = "http://mybackend-clusterip:4000/webapp/favourites";
 
 const clientId = "myappclient";
 const clientSecret = "CCOCxOSEFtc9IERUicsriQgD8FjYWKwx";
@@ -19,7 +19,7 @@ const {code_verifier,code_challenge} =  pkceChallenge();
 const codeVerifier = code_verifier 
 const codeChallenge = code_challenge
 
-const redirectUrl = "http://localhost:5000/myredirect";
+const redirectUrl = "http://localhost:80/web/myredirect";
 
 const authRequest = `${authEndpoint}?
 response_type=code&

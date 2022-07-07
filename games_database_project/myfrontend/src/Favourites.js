@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Favourites = () => {
   const [favourites,setFavourites]=useState([])
   const [err,SetErr] = useState(undefined)
-  const apiUnprotectedEndpoint = "http://localhost:4000/frontend/favourites";
+  const apiUnprotectedEndpoint = "http://localhost/api/frontend/favourites";
 
   useEffect(() => {
         axios

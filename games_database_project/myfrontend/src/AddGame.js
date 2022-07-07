@@ -8,7 +8,7 @@ const AddGame = () => {
     const [cover,setCover] = useState("");
     const [title,setTitle] = useState("");
     const { keycloak } = useKeycloak();
-    const apiProtectedEndpoint = "http://localhost:4000/frontend/games";
+    const apiProtectedEndpoint = "http://localhost/api/frontend/games";
     const navigate = useNavigate();
     const accessToken = keycloak.token || "";
 

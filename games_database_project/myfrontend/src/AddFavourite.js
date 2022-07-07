@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const AddFavourite = () => {
     const [cover,setCover] = useState("");
     const [title,setTitle] = useState("");
-    const apiUnprotectedEndpoint = "http://localhost:4000/frontend/favourites";
+    const apiUnprotectedEndpoint = "http://localhost/api/frontend/favourites";
     const navigate = useNavigate();
     const submitForm = () => { 
         axios

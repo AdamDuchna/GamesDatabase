@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Games = () => {
   const [games,setGames]=useState([])
   const { keycloak } = useKeycloak();
-  const apiProtectedEndpoint = "http://localhost:4000/frontend/games";
+  const apiProtectedEndpoint = "http://localhost/api/frontend/games";
   const [err,SetErr] = useState(undefined)
 
   useEffect(() => {
@@ -16,6 +16,7 @@ const Games = () => {
     axios
     .get( apiProtectedEndpoint, { headers: { Authorization: "Bearer " + accessToken }} )
     .then((result) => { 
+        console.log(result)
         setGames(result.data.games) })
     .catch((error) => { SetErr(error.message) });
   }, []);

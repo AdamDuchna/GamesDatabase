@@ -6,10 +6,10 @@ const app = express();
 app.use(express.json());
 const appPort = 6000;
 
-const tokenEndpoint = "http://localhost:8080/realms/myapprealm/protocol/openid-connect/token";
+const tokenEndpoint = "http://keycloak-development-service:8080/realms/myapprealm/protocol/openid-connect/token";
 
-const apiProtectedEnpoint = "http://localhost:4000/integration/games";
-const apiUnprotectedEnpoint = "http://localhost:4000/integration/favourites";
+const apiProtectedEnpoint = "http://mybackend-clusterip:4000/integration/games";
+const apiUnprotectedEnpoint = "http://mybackend-clusterip:4000/integration/favourites";
 
 
 const integrationClientId = "myintegrationclient";
